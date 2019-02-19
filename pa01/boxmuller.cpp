@@ -15,6 +15,7 @@
 #include <time.h>
 #include <vector>
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 float mu1 = 1;
@@ -59,27 +60,37 @@ vector<vector<float> > genSamples() {
 	vector<vector<float> > samples;
   vector<float> s;
 
+  fstream fout;
+  fout.open("data.csv", ios::out | ios::app);
+
 	for(int i = 0; i < 100000; i++) {
 		s.push_back(box_muller(0, 1));
+    fout << s[0] << ",";
 		s.push_back(box_muller(0, 1));
-    // for (std::vector<float>::const_iterator i = s.begin(); i != s.end(); ++i)
-    //   std::cout << *i << ' ';
-    // std::cout << endl;
-    s.clear();
+    fout << s[1] << ",";
     samples.push_back(s);
+    s.clear();
     s.push_back(box_muller(4, 1));
+    fout << s[0] << ",";
     s.push_back(box_muller(5, 1));
-    // for (std::vector<float>::const_iterator i = s.begin(); i != s.end(); ++i)
-    //   std::cout << *i << ' ';
-    // std::cout << endl;
+    fout << s[1] << "\n";
 		samples.push_back(s);
     s.clear();
 	}
+  fout.close();
   return samples;
 }
 
 int main() {
   vector<vector<float> > samples = genSamples();
+  vector< vector<float> >::iterator row;
+  vector<float>::iterator col;
+  for (row = samples.begin(); row != samples.end(); row++) {
+    for (col = row->begin(); col != row->end(); col++) {
+        cout << *col << " ";
+    }
+    cout << endl;
+  }
 }
 
 #endif
