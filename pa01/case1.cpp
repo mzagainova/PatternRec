@@ -26,7 +26,7 @@ int case1(vector<float> x, int label, float mu1, float mu2,
 
 float errorBound(float B, float mu1, float mu2, float sd1, float sd2) {
   float kb = ((B*(1-B))/2.0) * (mu1 - mu2) * pow((((1-B)*sd1) + (B*sd2)),-1) * (mu1 - mu2);
-  kb += 0.5*( ((log(1-B)*sd1)+(B*sd2)) / (pow(abs(sd1), 1-B) * pow(sd2,B)) );
+  kb += 0.5*(log(abs(((1-B)*sd1)+(B*sd2)) / (pow(abs(sd1), 1-B) * pow(sd2,B)) ));
   return exp(-1*kb);
 }
 
