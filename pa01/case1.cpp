@@ -25,9 +25,11 @@ int case1(vector<float> x, int label, float mu1, float mu2,
 }
 
 float errorBound(float B, float mu1, float mu2, float sd1, float sd2) {
-  float kb = ((B*(1-B))/2.0) * (mu1 - mu2) * pow((((1-B)*sd1) + (B*sd2)),-1) * (mu1 - mu2);
-  kb += 0.5*(log(abs(((1-B)*sd1)+(B*sd2)) / (pow(abs(sd1), 1-B) * pow(sd2,B)) ));
-  return exp(-1*kb);
+  float kb = (B*(1-B))/2.0;
+	kb *= (mu1 - mu2) * (1.0/((1-B)*sd1 + (B)*sd2)) * (mu1-mu2);
+	kb += 0.5 * log( ((1-B)*sd1 + (B)*sd2) / (pow(sd1, 1-B) * pow(sd2, B)));
+
+  return exp(-1.0*kb);
 }
 
 vector<float> calcChernoff(float mu1, float mu2, float sd1, float sd2) {
@@ -38,10 +40,10 @@ vector<float> calcChernoff(float mu1, float mu2, float sd1, float sd2) {
   fstream fout;
   fout.open("cherBound.csv", ios::out | ios::app);
 
-  for(float i = 0.000001; i <= 1.0; i += 0.000001) {
+  for(float i = 0.000001; i <= 1.0; i += 0.00001) {
     cherBoundNew = errorBound(i, mu1, mu2, sd1, sd2);
     fout << i << ",";
-    fout << cherBound << "\n";
+    fout << cherBoundNew << "\n";
     if(cherBoundNew < cherBound) {
       beta = i;
       cherBound = cherBoundNew;
@@ -52,6 +54,10 @@ vector<float> calcChernoff(float mu1, float mu2, float sd1, float sd2) {
   pair.push_back(cherBound);
   fout.close();
   return pair;
+}
+
+float calcBhattach(float mu1, float mu2, float sd1, float sd2) {
+  return errorBound(0.5, mu1, mu2, sd1, sd2);
 }
 
 int main() {
@@ -84,5 +90,7 @@ int main() {
   vector<float> cherBound = calcChernoff(1, 4, 1, 1);
   cout << "Cher Bound beta: " << cherBound[0] << endl;
   cout << "Cher Bound CherBound: " << cherBound[1] << endl;
+
+  cout << "Bhattacharyya bound: " << calcBhattach(1, 4, 1, 1) << endl;
 
 }
