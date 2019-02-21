@@ -73,9 +73,12 @@ int main() {
     row++;
     pred2 += case1(*row, 2, 1, 4, 1, 1, 0.5, 0.5);
   }
+  cout << "=======================================================================\n";
   cout << "EQUAL PROBS MISCLASSIFICATIONS (P(w1) = 0.5, P(w2) = 0.5): " << endl;
   cout << "w1: " << pred1 << endl;
   cout << "w2: " << pred2 << endl;
+  cout << "TOTAL: " << pred1+pred2 << endl;
+  cout << "=======================================================================\n";
 
   pred1, pred2 = 0;
   for (row = samples.begin(); row != samples.end(); row++) {
@@ -86,11 +89,13 @@ int main() {
   cout << "DIFF PROBS MISCLASSIFICATIONS (P(w1) = 0.2, P(w2) = 0.8): " << endl;
   cout << "w1: " << pred1 << endl;
   cout << "w2: " << pred2 << endl;
+  cout << "TOTAL: " << pred1+pred2 << endl;
+  cout << "=======================================================================\n";
 
   vector<float> cherBound = calcChernoff(1, 4, 1, 1);
   cout << "Cher Bound beta: " << cherBound[0] << endl;
   cout << "Cher Bound CherBound: " << cherBound[1] << endl;
-
   cout << "Bhattacharyya bound: " << calcBhattach(1, 4, 1, 1) << endl;
+  cout << "=======================================================================\n";
 
 }
