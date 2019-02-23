@@ -69,7 +69,7 @@ vector<vector<float> > genSamples() {
     s.clear();
     s.push_back(box_muller(4, 1));
     // fout << s[0] << ",";
-    s.push_back(box_muller(5, 1));
+    s.push_back(box_muller(4, 1));
     // fout << s[1] << "\n";
 		samples.push_back(s);
     s.clear();
