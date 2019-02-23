@@ -4,6 +4,7 @@
 #include <fstream>
 #include <string>
 #include <boxmuller.h>
+#include <commonFunction.h>
 using namespace std;
 
 int case1(vector<float> x, int label, float mu1, float mu2,
@@ -24,54 +25,29 @@ int case1(vector<float> x, int label, float mu1, float mu2,
   }
 }
 
-float errorBound(float B, float mu1, float mu2, float sd1, float sd2) {
-  float kb = (B*(1-B))/2.0;
-	kb *= (mu1 - mu2) * (1.0/((1-B)*sd1 + (B)*sd2)) * (mu1-mu2);
-	kb += 0.5 * log( ((1-B)*sd1 + (B)*sd2) / (pow(sd1, 1-B) * pow(sd2, B)));
 
-  return exp(-1.0*kb);
-}
-
-vector<float> calcChernoff(float mu1, float mu2, float sd1, float sd2) {
-  float beta = 0.0;
-  float cherBound = errorBound(0.0, mu1, mu2, sd1, sd2);
-  float cherBoundNew = 0.0;
-
-  fstream fout;
-  fout.open("cherBound.csv", ios::out | ios::app);
-
-  for(float i = 0.000001; i <= 1.0; i += 0.00001) {
-    cherBoundNew = errorBound(i, mu1, mu2, sd1, sd2);
-    fout << i << ",";
-    fout << cherBoundNew << "\n";
-    if(cherBoundNew < cherBound) {
-      beta = i;
-      cherBound = cherBoundNew;
-    }
-  }
-  vector<float> pair;
-  pair.push_back(beta);
-  pair.push_back(cherBound);
-  fout.close();
-  return pair;
-}
-
-float calcBhattach(float mu1, float mu2, float sd1, float sd2) {
-  return errorBound(0.5, mu1, mu2, sd1, sd2);
-}
 
 int main() {
-  vector<vector<float> > samples = genSamples();
-  vector<float> v = samples.front();
+  int meanx1 = 1;
+  int meany1 = 1;
+  int meanx2 = 4;
+  int meany2 = 4;
+  int stdx1 = 1;
+  int stdy1 = 1;
+  int stdx2 = 1;
+  int stdy2 = 1;
+
+  vector<vector<float> > samples = genSamples(meanx1, meany1, meanx2, meany2, stdx1, stdy1, stdx2, stdy2); //generates gaussian
+  vector<float> v = samples.front(); //takes first element of vector
 
   int pred1 = 0;
   int pred2 = 0;
 
   vector< vector<float> >::iterator row;
   for (row = samples.begin(); row != samples.end(); row++) {
-    pred1 += case1(*row, 1, 1, 4, 1, 1, 0.5, 0.5);
-    row++;
-    pred2 += case1(*row, 2, 1, 4, 1, 1, 0.5, 0.5);
+    pred1 += case1(*row, 1, 1, 4, 1, 1, 0.5, 0.5); // send distributions and prob
+    row++;//data point, label, mu1, mu2, sd1, sd2, prior1, prior2
+    pred2 += case1(*row, 2, 1, 4, 1, 1, 0.5, 0.5); 
   }
   cout << "=======================================================================\n";
   cout << "EQUAL PROBS MISCLASSIFICATIONS (P(w1) = 0.5, P(w2) = 0.5): " << endl;
