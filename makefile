@@ -1,10 +1,15 @@
 CFLAGS = -g
 
-all: face_detection
+all: readImage writeImage image
 
-face_detection: face_detection.cpp
-	g++ face_detection.cpp $(CFLAGS) -o face_detection
+readImage.o:	image.h readImage.cpp
+	g++ -c $(CFLAGS) readImage.cpp
 
+writeImage.o:	image.h writeImage.cpp
+	g++ -c $(CFLAGS) writeImage.cpp
+
+image.o:	image.h image.cpp
+	g++ -c $(CFLAGS) image.cpp
 
 clean:
-	rm *.o face_detection
+	rm *.o readImage image writeImage

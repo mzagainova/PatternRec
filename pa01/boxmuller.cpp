@@ -57,25 +57,25 @@ vector<vector<float> > genSamples(int meanx1, int meany1, int meanx2, int meany2
 	vector<vector<float> > samples;
   vector<float> s;
 
-  // fstream fout;
-  // fout.open("data.csv", ios::out | ios::app);
+  fstream fout;
+  fout.open("data.csv", ios::out | ios::app);
 
 	for(int i = 0; i < 100000; i++) {
 		s.push_back(box_muller(meanx1, stdx1));
-    // fout << s[0] << ",";
+    fout << s[0] << ",";
 		s.push_back(box_muller(meany1, stdy1));
-    // fout << s[1] << ",";
+    fout << s[1] << ",";
     samples.push_back(s);
     s.clear();
     s.push_back(box_muller(meanx2, stdx2));
-    // fout << s[0] << ",";
+    fout << s[0] << ",";
     s.push_back(box_muller(meany2, stdy2));
-    // fout << s[1] << "\n";
+    fout << s[1] << "\n";
 		samples.push_back(s);
 		//cout << s.back() << endl;
     s.clear();
 	}
-  // fout.close();
+  fout.close();
   return samples;
 }
 
