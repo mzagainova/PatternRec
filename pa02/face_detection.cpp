@@ -7,10 +7,10 @@
 using namespace std;
 
 
-void populate_pixel_vectors(vector<int> &r, vector<int> &b, vector<int> &g,  int totalPix, vector<float>& vectr, vector<float>& vectg, vector<float>& vectb);
-void create_2d_array(vector<int>& vectR, vector<int>& vectB, vector<int>& vectG, vector<int>& counter, vector< int>& vectBWX, vector<int>& vectBWY, int height, int width);
+void populate_pixel_vectors(vector<float> &r, vector<float> &b, vector<float> &g,  int totalPix, vector<float>& vectr, vector<float>& vectg, vector<float>& vectb);
+void create_2d_array(vector<float>& vectR, vector<float>& vectB, vector<float>& vectG, vector<float>& counter, vector<float>& vectBWX, vector<float>& vectBWY, int height, int width);
 void regularize_pixels(vector<float>& vectr, vector<float>& vectg, vector<float>& vectb);
-void get_skin_distribution(vector<float>& redVec, vector<float>& greenVec, vector<float>& blueVec, vector<float>& vectr, vector<float>& vectg, vector<float>& vectb, vector<int>& counter);
+void get_skin_distribution(vector<float>& redVec, vector<float>& greenVec, vector<float>& blueVec, vector<float>& vectr, vector<float>& vectg, vector<float>& vectb, vector<float>& counter);
 void calculate_sample_averages(vector<float> redVec, vector<float> greenVec, float& sampleAvRed, float& sampleAvGreen, int numSamples);
 void calculate_sample_covariance(vector<float> redVec, vector<float> greenVec, vector<float>& covarVec, float& sampleAvRed, float& sampleAvGreen, int numSamples, int& counter);
 float calc_determinant(vector<float> covarVec);
@@ -21,9 +21,8 @@ float calc_gx(vector<float> covarVec, float SampleAvRed, float sampleAGreen, flo
 void testImPix(vector<float> covarVec, float sampleAvRed, float sampleAvGreen, float thresh, int& FP, int& FN, int totalPix);
 void test_thresholds(vector<float> covarVec, float sampleAvRed, float sampleAvGreen, int totalPix);
 bool is_bigger(float gx, float thresh);
-void print_image(vector<int> R, vector<int> B, vector<int> G, float thresh, string num);
-void calculate_ROC (vector<int>R, vector<int> B, vector<int> G, int& FP, int& FN, int totalPix,  ifstream& f);
-
+void print_image(vector<float> R, vector<float> B, vector<float> G, float thresh, string num);
+void calculate_ROC (vector<float>R, vector<float> B, vector<float> G, int& FP, int& FN, int totalPix,  ifstream& f);
 
 
 int main(){
@@ -31,15 +30,15 @@ int main(){
 	vector<float> redVec;
 	vector<float> greenVec;
 	vector<float> blueVec;
-	vector<int> vectBWX;
-	vector<int> vectBWY;
-	vector<int> vectR;
-	vector<int> vectG;
-	vector<int> vectB;
+	vector<float> vectBWX;
+	vector<float> vectBWY;
+	vector<float> vectR;
+	vector<float> vectG;
+	vector<float> vectB;
 	vector<float> vectr;
 	vector<float> vectg;
 	vector<float> vectb;
-	vector<int> counter;
+	vector<float> counter;
 	vector<float> covarVec;
 
 	int totalPix = 2583552;
@@ -65,7 +64,7 @@ int main(){
 
 	int numSamples = redVec.size();
 	calculate_sample_averages(redVec, greenVec, sampleAvRed, sampleAvGreen, numSamples);
-
+	
 	int c = 0;
 	calculate_sample_covariance( redVec,  greenVec,  covarVec, sampleAvRed,  sampleAvGreen, numSamples, c);
 
@@ -73,6 +72,11 @@ int main(){
 
 
 	test_thresholds(covarVec, sampleAvRed, sampleAvGreen, totalPix);
+
+
+
+
+
 
 }
 
@@ -82,7 +86,7 @@ int main(){
 
 //uppercase populates the r g and b from bw images
 //lowercase populates rgb from rgb image
-void populate_pixel_vectors(vector<int> &r, vector<int> &b, vector<int> &g,  int totalPix, vector<float>& vectr, vector<float>& vectg, vector<float>& vectb)
+void populate_pixel_vectors(vector<float> &r, vector<float> &b, vector<float> &g,  int totalPix, vector<float>& vectr, vector<float>& vectg, vector<float>& vectb)
 {
 	ifstream f;
 	f.open("ref1.txt");
@@ -91,7 +95,7 @@ void populate_pixel_vectors(vector<int> &r, vector<int> &b, vector<int> &g,  int
 	int x = 0;
 	int n = 0;
 	int count = 0;
-	//cout << "TP" << totalPix << endl;
+	
 	while (f >> x) 
 	{
 	  
@@ -129,13 +133,12 @@ void populate_pixel_vectors(vector<int> &r, vector<int> &b, vector<int> &g,  int
 	    }
 
 	    count++;
+	 }
 }
 
 
-
-}
 //If the pixel value is white in bw image, find its location and add it to counter
-void create_2d_array(vector<int>& vectR, vector<int>& vectB, vector<int>& vectG, vector<int>& counter, vector< int>& vectBWX, vector<int>& vectBWY, int height, int width)
+void create_2d_array(vector<float>& vectR, vector<float>& vectB, vector<float>& vectG, vector<float>& counter, vector<float>& vectBWX, vector<float>& vectBWY, int height, int width)
 {
 	
 	int z = 0;
@@ -146,23 +149,21 @@ void create_2d_array(vector<int>& vectR, vector<int>& vectB, vector<int>& vectG,
 
 	        if (vectR.at(z) == 255 && vectG.at(z) ==255 && vectB.at(z) == 255)
 	        {
-	            //cout<< vectR.at(z) << endl;
+	           
 	            vectBWX.push_back(y);
 	            vectBWY.push_back(x);
-	            //cout << y << " " << x << endl;
+	            
 	           
 	            counter.push_back(z);
 
 
-	           //cout <<vectBWX.at(0) << endl;
-	           //cout << vectBWY.at(0) << endl;
+	           
 	        }
 	        z++;
 
 	    }
 	}
-	//cout << counter.at(1);
-	//cout << "counter " << counter.size() << endl;
+
 }
 
 //regularize rgb values between 0 and 1
@@ -170,13 +171,10 @@ void regularize_pixels(vector<float>& vectr, vector<float>& vectg, vector<float>
 {
 	for (int i = 0; i < vectb.size(); i++)
 	{
-	    //int pixTot = redVec.at(i) + greenVec.at(i) + blueVec.at(i);
-	    //cout << redVec.at(0);
-	    //redVec.at(i) = float(redVec.at(i) / pixTot);
-	    //greenVec.at(i) = float(greenVec.at(i)/pixTot);
+	   
 
 	    int pixTot = vectr.at(i) + vectg.at(i) + vectb.at(i);
-	    //cout << vectr.at(i) << " " << i << endl;
+	   
 	    if (vectr.at(i) > 0)
 	        vectr.at(i) = float(vectr.at(i) / pixTot);
 	    if (vectg.at(i) >0)
@@ -185,20 +183,19 @@ void regularize_pixels(vector<float>& vectr, vector<float>& vectg, vector<float>
 }
 
 //get skin distribution pixels using the white pixel locations from the bw image, add to red green and blue vectors
-void get_skin_distribution(vector<float>& redVec, vector<float>& greenVec, vector<float>& blueVec, vector<float>& vectr, vector<float>& vectg, vector<float>& vectb, vector<int>& counter)
+void get_skin_distribution(vector<float>& redVec, vector<float>& greenVec, vector<float>& blueVec, vector<float>& vectr, vector<float>& vectg, vector<float>& vectb, vector<float>& counter)
 {
 	for (int i = 0; i < counter.size(); i++)
 	{
-		//cout << "vectr" <<  vectr.at(995) << endl;
-		//cout <<vectr.at(counter.at(0)) << endl;
+		
 	    redVec.push_back(vectr.at(counter.at(i)));
 	    greenVec.push_back(vectg.at(counter.at(i)));
 	    blueVec.push_back(vectb.at(counter.at(i)));
-	    //cout << vectR.at(counter.at(i));
+	    
 
 	}
 
-	//cout << vectr.size() << endl;
+	
 }
 
 //calculate the sample mean for red and green values in faces
@@ -214,7 +211,7 @@ void calculate_sample_averages(vector<float> redVec, vector<float> greenVec, flo
 	sampleAvRed = redTot/numSamples;
 	sampleAvGreen = greenTot/numSamples;
 
-	//cout << sampleAvRed << "av red" << endl;
+	
 }
 
 // calculate the sample variance for teh red and green values in faces
@@ -285,7 +282,7 @@ float calc_frac(vector<float> covarVec)
 {
 	float determinant = calc_determinant(covarVec);
 	determinant = sqrt(determinant);
-	cout << "det " << determinant << endl;
+	
 	float doublePi = 3.1415926 * 2;
 
 	return (1/(determinant *doublePi));
@@ -296,8 +293,7 @@ float calc_frac(vector<float> covarVec)
 void calc_inverse(vector<float> covarVec, vector<float>& covarVecIn)
 {
 	float det = calc_determinant(covarVec);
-	//cout << det << endl;
-	//cout << covarVec.at(3);
+	
 
 	covarVecIn.at(0) = covarVec.at(3) / det;
 	covarVecIn.at(3) = covarVec.at(0) / det; 
@@ -312,13 +308,13 @@ double pwr_calc(vector<float> covarVec, float sampleAvRed, float sampleAvGreen, 
 {
 	vector<float> covarVecIn = {0, 0, 0, 0};
 	calc_inverse(covarVec, covarVecIn);
-	//cout << "after inv" << endl;
+	
 
 
 
 	float red = redPix - sampleAvRed;
 	float green = greenPix - sampleAvGreen;
-	cout << "red" << red << endl;
+	
 
 	float halvedNRed = -0.5 * (redPix-sampleAvRed);
 	float halvedNGreen = -0.5 * (greenPix-sampleAvGreen);
@@ -328,7 +324,7 @@ double pwr_calc(vector<float> covarVec, float sampleAvRed, float sampleAvGreen, 
 	float dotB = halvedNRed *covarVecIn.at(1) + halvedNGreen * covarVecIn.at(3);
 
 	float sum = dotA * red + dotB * green;
-	cout << "Sum" << sum << endl;
+	
 	return sum;
 }
 
@@ -336,20 +332,23 @@ double pwr_calc(vector<float> covarVec, float sampleAvRed, float sampleAvGreen, 
 float calc_gx(vector<float> covarVec, float sampleAvRed, float sampleAvGreen, float redPix, float greenPix)
 {
 	float frac = calc_frac(covarVec);
-	cout << "frac" << frac << endl;
+
 	double pwr = pwr_calc(covarVec, sampleAvRed, sampleAvGreen, redPix, greenPix);
-	//cout << "pwr" << pwr << endl;
+
+	
 	float gx = frac * exp(pwr); 
-	cout << "gx" << gx << endl;
-	return (gx);
+	
+	float normgx = gx / frac;
+	
+	return normgx;
 }
 
-//populate test image vectors, send pixel pairs one at a time to gx
+//populate test image vectors, send pixel pairs one at a time to gx, print the image, and calculate ROC
 
 void testImPix(vector<float> covarVec, float sampleAvRed, float sampleAvGreen, float thresh, int& FP, int& FN, int totalPix)
 {
 
-	string num = "3";
+	string num = "6";
 	
 	int x = 0;
 	int count = 0;
@@ -357,17 +356,17 @@ void testImPix(vector<float> covarVec, float sampleAvRed, float sampleAvGreen, f
 	vector<float> g;
 	float redPix = 0;
 	float greenPix = 0;
-	vector <int>R;
-	vector <int>G;
-	vector <int>B;
+	vector <float>R;
+	vector <float>G;
+	vector <float>B;
 	ifstream rgbIm;
-	rgbIm.open("Training_3.txt");
+	rgbIm.open("Training_6.txt");
 	ifstream f;
-	f.open("ref3.txt");
+	f.open("ref6.txt");
 	vector<float> b;
 	
 
-	//cout << "before while" << endl;
+	
 	while (rgbIm >> x) 
 	{
 	  	float redPix = 0;
@@ -401,31 +400,35 @@ void testImPix(vector<float> covarVec, float sampleAvRed, float sampleAvGreen, f
 		redPix = r.at(i);
 		greenPix = g.at(i);
 		float gx = calc_gx(covarVec, sampleAvRed, sampleAvGreen, redPix, greenPix);
-		//cout << gx << " " << thresh << endl;
+		
 		if (is_bigger(gx, thresh) == true)
 		{
-			//cout << "NEW ITERATION" << endl;
-			//cout << "Positive " << thresh << " " << gx << endl;
+			
 			R.push_back(255);
 			B.push_back(255);
 			G.push_back(255);
 		}
 		else
 		{
-			//cout << "Negative " << thresh << " " << gx << endl;
+			
 			R.push_back(0);
 			B.push_back(0);
 			G.push_back(0);
 		}
 	}
-	//cout << "before print" << endl;
-	//print_image(R, B, G, thresh, num);
-	//cout << "after print" << endl;
+
+
+	print_image(R, B, G, thresh, num);
+	
 	calculate_ROC(R, B, G, FP, FN, totalPix, f);
 	cout << "FP= " << FP << endl;
 	cout << "FN= " << FN << endl;
+	float tot = FP + FN;
+	float cor = r.size() - tot;
+	float per = cor/ r.size();
+	cout << "Percent correct= " <<  per * 100 << "% " << endl;
 	cout << endl;
-	//cout << FP << endl;
+	
 
 
 }
@@ -439,57 +442,63 @@ void test_thresholds(vector<float> covarVec, float sampleAvRed, float sampleAvGr
 		{
 			int FP = 0;
 			int FN = 0;
-			thresh =  i / 1000; //may need to up to 1000
+			thresh =  i / 100; //may need to up to 1000
 			cout << "T = " << thresh << endl;
 			testImPix(covarVec, sampleAvRed, sampleAvGreen, thresh, FP, FN, totalPix);
 		}	
 }
 
+
+//check if gx is greater than the threshold
 bool is_bigger(float gx, float thresh)
 {
 	return (gx > thresh);
 }
 
-void print_image(vector<int> R, vector<int> B, vector<int> G, float thresh, string number)
+
+//print the image pixel values to a text file
+void print_image(vector<float> R, vector<float> B, vector<float> G, float thresh, string number)
 {
+	
 	ofstream outfile;
 	string num = to_string(thresh);
-	string filename = number .append("_");
+	string filename = number.append("_");
 	filename.append(num);
 	outfile.open(filename + ".txt");
 	for (int i = 0; i < R.size(); i++)
 	{
-		outfile << R.at(i) << " ";
+		outfile << R.at(i) << '\n';
 
 	}
 	for (int i = 0; i < G.size(); i++)
 	{
-		outfile << G.at(i) << " ";
+		outfile << G.at(i) << '\n';
 		
 	}
-
+	
 	for (int i = 0; i < B.size(); i++)
 	{
-		outfile << B.at(i) << " ";
+		outfile << B.at(i) << '\n';
 		
 	}
 
 	outfile.close();
 }
 
-void calculate_ROC (vector<int>R, vector<int> B, vector<int> G, int& FP, int& FN, int totalPix, ifstream& f)
-{
-	//cout << FP << endl;
 
-	vector<int> r;
-	//vector<int> g;
-	//vector<int> b;
-	vector <int> ind;
+//Calculate fp and fn using the ref image data in the r vector to the R, B, G vectors
+void calculate_ROC (vector<float>R, vector<float> B, vector<float> G, int& FP, int& FN, int totalPix, ifstream& f)
+{
+	
+
+	vector<float> r;
+	
+	vector <float> ind;
 	int x = 0;
 	int count = 0;
 	while(f >>x)
 	{
-		//cout << "x " <<x << "totalPix " << totalPix <<  endl;
+		
 		if (count <= totalPix)
 		{
 			r.push_back(x);
@@ -500,7 +509,7 @@ void calculate_ROC (vector<int>R, vector<int> B, vector<int> G, int& FP, int& FN
 
 	for (int i = 0; i < R.size(); i++)
 	{
-		//cout << R.at(i) << endl;
+		
 		if (R.at(i) == 255 && r.at(i) != 255)
 		{
 			FP ++;
