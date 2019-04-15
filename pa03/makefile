@@ -1,21 +1,41 @@
-CFLAGS = -g -lstdc++
+CXX      := -c++
+CXXFLAGS := -g -Wall -std=c++11 --verbose
+LDFLAGS  := -L/usr/lib -lstdc++ -lm
+BUILD    := ./build
+OBJ_DIR  := $(BUILD)/objects
+APP_DIR  := $(BUILD)/apps
+TARGET   := program
+INCLUDE  := -Iinclude/
+SRC      :=                      \
+	$(wildcard src/module1/*.cpp) \
+	$(wildcard src/module2/*.cpp) \
+	$(wildcard src/module3/*.cpp) \
+	$(wildcard src/*.cpp)         \
 
-all: readImage readImageHeader writeImage image pa03
+OBJECTS := $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 
-readImage.o: image.h readImage.cpp
-	g++ -c $(CFLAGS) readImage.cpp
+all: build $(APP_DIR)/$(TARGET)
 
-readImageHeader.o: image.h readImageHeader.cpp
-	g++ -c $(CFLAGS) readImageHeader.cpp
+$(OBJ_DIR)/%.o: %.cpp
+	@mkdir -p $(@D)
+	$(CXX) $(CXXFLAGS) $(INCLUDE) -o $@ -c $<
 
-writeImage.o: image.h writeImage.cpp
-	g++ -c $(CFLAGS) writeImage.cpp
+$(APP_DIR)/$(TARGET): $(OBJECTS)
+	@mkdir -p $(@D)
+	$(CXX) $(CXXFLAGS) $(INCLUDE) $(LDFLAGS) -o $(APP_DIR)/$(TARGET) $(OBJECTS)
 
-image.o: image.h image.cpp
-	g++ -c $(CFLAGS) image.cpp
+.PHONY: all build clean debug release
 
-pa03: image.h image.o readImage.o readImageHeader.o writeImage.o main.cpp
-	g++ -o pa03 $(CFLAGS) image.o readImage.o readImageHeader.o writeImage.o main.cpp
+build:
+	@mkdir -p $(APP_DIR)
+	@mkdir -p $(OBJ_DIR)
+
+debug: CXXFLAGS += -DDEBUG -g
+debug: all
+
+release: CXXFLAGS += -O2
+release: all
 
 clean:
-	rm *.o readImage image writeImage readImageHeader
+	-@rm -rvf $(OBJ_DIR)/*
+	-@rm -rvf $(APP_DIR)/*
