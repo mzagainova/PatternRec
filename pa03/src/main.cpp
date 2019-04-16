@@ -7,12 +7,13 @@
 #include <sys/types.h>
 #include <dirent.h>
 #include <iterator>
+#include <algorithm>
 
 using namespace Eigen;
 using namespace std;
 
-// change for low/high definition images
-int M = 48;
+// CHANGE M AND N IF CHANGING RES
+int M = 48;  
 int N = 60;
 int Q = 255;
 
@@ -33,6 +34,7 @@ void writeFace(VectorXf , char[], char);
 void calcEigenFaces(vector<pair<string, VectorXf> >, VectorXf&, MatrixXf&, VectorXf&, const char*);
 bool readSavedFaces(VectorXf &, MatrixXf &, VectorXf &,const char*);
 VectorXf projectFace(VectorXf, VectorXf, MatrixXf);
+VectorXf projectFaceLastTen(VectorXf , VectorXf , MatrixXf );
 bool compare(pair<string, float>, pair<string, float>);
 bool classify(pair<string, VectorXf>, vector<pair<string, VectorXf>>, vector<pair<string, VectorXf>>);
 
@@ -69,9 +71,9 @@ namespace Eigen
 // run with train or test for argv[1]
 int main(int argc, char* argv[]) {
 	// set train/test image directories
-	const char* train_dir = "train_images/fa_H";
+	const char* train_dir = "train_images/fa_H/"; //change to fa_L for grad portion
 	const char* eigen_dir = "eigenvalues/";
-	const char* test_dir = "test_images/fb_H";
+	const char* test_dir = "test_images/fb_H/"; //change to fb_L for grad portion
 	vector<pair<string, VectorXf> > trainFaces;
 	vector<pair<string, VectorXf> > testFaces;
 	VectorXf averageFace;
@@ -121,10 +123,114 @@ int main(int argc, char* argv[]) {
 		cout << "Writing out average face to average/ directory." << endl;
 		writeFace(averageFace, average_dir, def);
 
+
+
+		
+
+		//calculate the top ten eigenvalue face
+		MatrixXf kEigenFacesTop(averageFace.rows(), 10);
+		kEigenFacesTop = eigenFaces.block(0,0,averageFace.rows(),10);
+
+		// project all training faces onto eigenspace
+		vector<pair<string, VectorXf> > projTrainFaces;
+
+		cout << "TOP ----------------------------------------------------------------------------------------------------" << endl;
+		
+		for(unsigned int i = 0; i < trainFaces.size(); i++) {
+			pair<string, VectorXf> proj(trainFaces[i].first, projectFace(trainFaces[i].second, averageFace, kEigenFacesTop));
+			projTrainFaces.push_back(proj);
+		}
+		
+		VectorXf topTen = VectorXf(projTrainFaces[0].second.rows());
+		topTen.fill(0);
+		
+		for(auto i = projTrainFaces.begin(); i != projTrainFaces.end(); i++)
+		{
+		    topTen += i->second;
+		}
+	    topTen /= projTrainFaces.size();
+	    cout << "DIFFERENCE TOP TEN" << endl;
+
+	    float val = 0; 
+
+	    for (int i = 0; i < topTen.size(); i ++)
+	    {
+	    	val += topTen[i];
+
+	    } 
+	    val /= topTen.size();
+	    cout << val << endl;
+
+		char topTen_dir[] = "average/topTen.pgm";
+		// change def to 'l' if using with low def images
+		//char def = 'h';
+		cout << "Writing out top ten face to average/ directory." << endl;
+		writeFace(topTen, topTen_dir, def);
+
+		
+		projTrainFaces.clear();
+
+		
+		
+
+
+		MatrixXf kEigenFacesBottom(averageFace.rows(), 10);
+		
+		int start = eigenFaces.cols() -10;
+		
+		kEigenFacesBottom = eigenFaces.block(0, start  ,averageFace.rows(), 10);
+	
+		cout<< eigenFaces.cols() << " " << eigenFaces.rows() << endl;
+		//kEigenFacesBottom = eigenFaces.block(eigenFaces.rows()-10,0 ,10, averageFace.cols());
+		//cout << kEigenFacesBottom.cols() <<" " << kEigenFacesBottom.rows() << endl;
+		
+cout << "BOTTOM -------------------------------------------------------------------------------------------------" << endl;
+		// Calculate the last ten eigenvalue face
+		
+		for(unsigned int i = 0; i < trainFaces.size(); i++) {
+			pair<string, VectorXf> proj(trainFaces[i].first, projectFace(trainFaces[i].second, averageFace, kEigenFacesBottom));
+			projTrainFaces.push_back(proj);
+
+		}
+		
+
+
+		VectorXf lastTen = VectorXf(projTrainFaces[0].second.rows());
+		lastTen.fill(0);
+		
+		for(auto i = projTrainFaces.begin(); i != projTrainFaces.end(); i++)
+		{
+		    lastTen += i->second;
+		}
+	    lastTen /= projTrainFaces.size();
+
+	    cout << "DIFFERENCE BOTTOM TEN" << endl;
+	 	val = 0; 
+
+	    for (int i = 0; i < lastTen.size(); i ++)
+	    {
+	    	val += lastTen[i];
+
+	    } 
+	    val /= lastTen.size();
+	    cout << val << endl;
+
+
+		char lastTen_dir[] = "average/lastTen.pgm";
+		// change def to 'l' if using with low def images
+		//char def = 'h';
+		cout << "Writing out last ten face to average/ directory." << endl;
+		writeFace(lastTen, lastTen_dir, def);
+
+
+
+		int k = 0;
+		projTrainFaces.clear();
+
 		// Find k
 		float eigenSum = eigenVals.sum();
 		float currTotal = 0.00;
-		int k;
+		//int k;
 		for(k = 0; currTotal / eigenSum < PERCENT_PRES && k < eigenVals.rows(); k++) {
 			currTotal += eigenVals.row(k)(0);
 		}
@@ -135,16 +241,17 @@ int main(int argc, char* argv[]) {
 		kEigenFaces = eigenFaces.block(0,0,averageFace.rows(),k);
 
 		// project all training faces onto eigenspace
-		vector<pair<string, VectorXf> > projTrainFaces;
+		
 		for(unsigned int i = 0; i < trainFaces.size(); i++) {
 			pair<string, VectorXf> proj(trainFaces[i].first, projectFace(trainFaces[i].second, averageFace, kEigenFaces));
 			projTrainFaces.push_back(proj);
 		}
 
+
 		// project all test faces onto eigenspace
 		vector<pair<string, VectorXf> > projTestFaces;
 		for(unsigned int i = 0; i < testFaces.size(); i++) {
-			cout << "Projecting onto i: " << i << endl;
+			//cout << "Projecting onto i: " << i << endl;
 			pair<string, VectorXf> proj(testFaces[i].first, projectFace(testFaces[i].second, averageFace, kEigenFaces));
 			projTestFaces.push_back(proj);
 		}
@@ -170,7 +277,7 @@ int main(int argc, char* argv[]) {
 
 bool fileExists(const char* fileName) {
 	ifstream ifile(fileName);
-	return ifile;
+	return ifile.good();
 }
 
 
@@ -268,9 +375,12 @@ void writeFace(VectorXf face, char file[], char def) {
 		for(int j = 0; j < cols; j++) {
 			temp = (face[i*cols+j] - min) / (max - min);
 			image.setPixelVal(i, j, temp*255);
+			
 		}
 	}
+
 	writeImage(file, image);
+	
 }
 
 
@@ -331,6 +441,24 @@ VectorXf projectFace(VectorXf face, VectorXf avFace, MatrixXf eigenFaces) {
     VectorXf projFace(avFace.rows());
     projFace.fill(0);
     for(int i = 0; i < eigenFaces.cols(); i++) {
+    	//cout << eigenFaces.col(1).row(1) << " EIGEN val" << endl;
+        float a = (eigenFaces.col(i).transpose() * normFace)(0,0);
+        coeffs.push_back(a);
+      
+        projFace += (coeffs[i] * eigenFaces.col(i));
+    }
+    return projFace + avFace;
+   
+}
+
+VectorXf projectFaceLastTen(VectorXf face, VectorXf avFace, MatrixXf eigenFaces) {
+    vector<float> coeffs;
+    VectorXf normFace = face - avFace;
+    VectorXf projFace(avFace.rows());
+    projFace.fill(0);
+    
+    for(int i = eigenFaces.cols()-1; i < eigenFaces.cols(); i++) {
+    	cout << "HERE" << endl;
         float a = (eigenFaces.col(i).transpose() * normFace)(0,0);
         coeffs.push_back(a);
         projFace += (coeffs[i] * eigenFaces.col(i));
@@ -367,3 +495,4 @@ bool classify(pair<string, VectorXf> projTestFace, vector<pair<string, VectorXf>
 	}
 	return false;
 }
+
