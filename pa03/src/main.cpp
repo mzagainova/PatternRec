@@ -1,4 +1,4 @@
-#include <eigen3/Eigen/Dense>
+#include "eigen3/Eigen/Dense"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -35,9 +35,9 @@ void calcEigenFaces(vector<pair<string, VectorXf> >, VectorXf&, MatrixXf&, Vecto
 bool readSavedFaces(VectorXf &, MatrixXf &, VectorXf &,const char*);
 VectorXf projectFace(VectorXf, VectorXf, MatrixXf);
 bool compare(pair<string, float>, pair<string, float>);
-bool classify(pair<string, VectorXf>, vector<pair<string, VectorXf>>, vector<pair<string, VectorXf>>, int, string&, float , int&, int&);
+int classify(pair<string, VectorXf>, vector<pair<string, VectorXf>>, vector<pair<string, VectorXf>>, int, string&, float);
 void calc_N_Vals(vector<pair<string, VectorXf> >, vector<pair<string, VectorXf> > ,  vector<pair<string, VectorXf> >, int , int& , int& , vector<string>&, vector<string>&, float);
-
+float findMax(vector<pair<string, VectorXf>> , vector<pair<string, VectorXf>>, vector<pair<string, VectorXf>> , vector<pair<string, VectorXf>> );
 
 
 #include <sys/types.h>
@@ -123,7 +123,7 @@ int main(int argc, char* argv[]) {
 		
 
 		// print out average face image
-		char average_dir[] = "average/averageFace.pgm";
+		//char average_dir[] = "average/averageFace.pgm";
 		// change def to 'l' if using with low def images
 		
 		char def = 'h';
@@ -294,17 +294,25 @@ int main(int argc, char* argv[]) {
 			}
 		MatrixXf kEigenFaces2(averageFace2.rows(), k);
 		kEigenFaces2 = eigenFaces2.block(0,0,averageFace2.rows(),k);
+
+		//create vector of train faces
 		for(unsigned int i = 0; i < trainFaces2.size(); i++) {
 				pair<string, VectorXf> proj2(trainFaces2[i].first, projectFace(trainFaces2[i].second, averageFace2, kEigenFaces2));
 				projTrainFaces2.push_back(proj2);
 			}
 		
-		
-		for(unsigned int i = 0; i < testFaces.size(); i++) {
+		//create vector of test faces
+		for(unsigned int i = 0; i < testFaces2.size(); i++) {
 				
 			pair<string, VectorXf> proj2(testFaces2[i].first, projectFace(testFaces2[i].second, averageFace2, kEigenFaces2));
 			projTestFaces2.push_back(proj2);
 		}
+
+		float max =  findMax(projTestFaces2,  projTrainFaces2,  trainFaces2, testFaces2);
+		
+		cout << "MAX " << max << endl;
+
+
 		
 		float thresh;
 		ofstream ofile2;
@@ -312,28 +320,93 @@ int main(int argc, char* argv[]) {
 
 
 		string first;
+		float partition = 0.0;
 
-		for (float a = 0.0; a < 100.00; a++)
+		for (float a = 0.0; a <= 100.00; a++)
 		{
 			int fp = 0;
 			int tp = 0;
+			int check = 0;
 			int nonIntruder = 1105;
 			int intruder = 91;
-			thresh = a/100.00;
+
+			partition = max/100.00;
+			thresh = partition * a;
+			thresh = a;
 			cout << "T= " << thresh << endl;
 			ofile2 << "T= " << thresh << endl;
-			for (int l = 0; l < testFaces2.size(); l++)
+			
+			for (unsigned int l = 0; l < testFaces2.size(); l++)
 			{
 				
-				classify(projTestFaces2[l], projTrainFaces2, trainFaces2, 1, first, 0.5, fp, tp);
+				int test = classify(projTestFaces2[l], projTrainFaces2, trainFaces2, 1, first, partition*50); //0.5 should be thresh
+
+				if (test == 1)
+				{
+					tp++;
+				}
+				if (test == 2)
+				{
+					fp++;
+				}
+				if(test == 3){
+					check ++;
+				}
 			}
-			
+			//cout << "CHECK = " << check << endl;
 			cout << "FP= " << fp << " Rate= " << float(float(fp)/float(intruder)) << " TP= " << tp << " Rate= " << float(float(tp)/float(nonIntruder)) << " Precision= " << float(float(tp) / float((tp+fp))) << " Recall= "<< float(float(tp)/(float(nonIntruder - tp))) << endl;
 			ofile2 <<  "FP= " << fp << " Rate= " << float(float(fp)/float(intruder)) << " TP= " << tp << " Rate= " << float(float(tp)/float(nonIntruder)) << " Precision= " << float(float(tp) / float((tp+fp))) << " Recall= "<< float(float(tp)/(float(nonIntruder - tp))) << endl;
 			ofile2 << endl;
-		}
 
-		ofile2.close();
+			
+
+			}
+			/*
+		
+		
+			int fp = 0;
+			int tp = 0;
+			int check = 0;
+			int nonIntruder = 1105;
+			int intruder = 91;
+			string first;
+			//for (int a = 0; a <= 100; a++){
+				for (unsigned int l = 0; l < 10; l++) //For every test face
+				{
+					float max = findMax(projTestFaces2[l], projTrainFaces2, trainFaces2, testFaces2); //calculate max distance
+					float partition = max/100.00;	 //partition it
+					//float thresh = partition * a;
+					int test = classify(projTestFaces2[l], projTrainFaces2, trainFaces2, 1, first, thresh);
+					if (test == 1)
+					{
+						tp++;
+					}
+					if (test == 2)
+					{
+						fp++;
+					}
+					if(test == 3){
+						check ++;
+					}
+				
+				}
+			
+
+			cout << "CHECK = " << check << endl;
+			cout << "FP= " << fp << " Rate= " << float(float(fp)/float(intruder)) << " TP= " << tp << " Rate= " << float(float(tp)/float(nonIntruder)) << " Precision= " << float(float(tp) / float((tp+fp))) << " Recall= "<< float(float(tp)/(float(nonIntruder - tp))) << endl;
+			//ofile2 <<  "FP= " << fp << " Rate= " << float(float(fp)/float(intruder)) << " TP= " << tp << " Rate= " << float(float(tp)/float(nonIntruder)) << " Precision= " << float(float(tp) / float((tp+fp))) << " Recall= "<< float(float(tp)/(float(nonIntruder - tp))) << endl;
+			//ofile2 << endl;
+			//}
+			
+			
+			cout << "CHECK = " << check << endl;
+			cout << "FP= " << fp << " Rate= " << float(float(fp)/float(intruder)) << " TP= " << tp << " Rate= " << float(float(tp)/float(nonIntruder)) << " Precision= " << float(float(tp) / float((tp+fp))) << " Recall= "<< float(float(tp)/(float(nonIntruder - tp))) << endl;
+			ofile2 <<  "FP= " << fp << " Rate= " << float(float(fp)/float(intruder)) << " TP= " << tp << " Rate= " << float(float(tp)/float(nonIntruder)) << " Precision= " << float(float(tp) / float((tp+fp))) << " Recall= "<< float(float(tp)/(float(nonIntruder - tp))) << endl;
+			ofile2 << endl;
+			*/
+		
+
+		//ofile2.close();
 
 
 
@@ -531,9 +604,9 @@ int main(int argc, char* argv[]) {
 */
 
 
-
 	}
 }
+
 /*********************** FUNCTION DEFINITIONS **********************/
 
 bool fileExists(const char* fileName) {
@@ -717,92 +790,88 @@ bool compare(pair<string, float> a, pair<string, float> b) {
     return a.second < b.second;
 }
 
+float findMax(vector<pair<string, VectorXf>> projTestFaces, vector<pair<string, VectorXf>> projTrainFaces, vector<pair<string, VectorXf>> trainFaces, vector<pair<string, VectorXf>> testFaces)
+{
+	float temp = 0.0;
+	float dist = 0.0;
+		for (int i = 0; i < testFaces.size(); i++){
+			for(unsigned int j = 0; j < trainFaces.size(); j++) {
+			   dist = (projTestFaces[i].second - projTrainFaces[j].second).norm();
+			   cout << dist << endl;
+			   if (dist > temp){
+			   		temp = dist;
+			   }
+		}
+	}
+	
+	return temp;
+}
+
 // input: projected test face you want to test, vector of all projected training faces, and original triaing faces
-bool classify(pair<string, VectorXf> projTestFace, vector<pair<string, VectorXf>> projTrainFaces,
-  vector<pair<string, VectorXf> > trainFaces, int N, string& first, float thresh, int& fp, int& tp) {
+int classify(pair<string, VectorXf> projTestFace, vector<pair<string, VectorXf>> projTrainFaces,
+  vector<pair<string, VectorXf> > trainFaces, int N, string& first, float thresh) {
 
 
   float dist = 0.0;
   vector< pair<string, float> > testPairs;
 
-  cout << "THRESH " << thresh << endl;
-  if (thresh <= float(1.0))
-  {
-  	vector <float> distance;
-	float min;
-	float max;
-
-	for(unsigned int t = 0; t < trainFaces.size(); t++) {
-		dist = (projTestFace.second - projTrainFaces[t].second).norm();
-	    dist = float(dist);
-		distance.push_back(float(dist)); 
-		}
-	
-	min = *min_element(distance.begin(), distance.end());
-	max = *max_element(distance.begin(), distance.end());
-
-	vector <float> d;
-
-		
-	for(unsigned int t = 0; t < trainFaces.size(); t++) {
-		
-		dist = ((projTestFace.second - projTrainFaces[t].second).norm() - min)/(max-min);
-		pair<string, float> temp(trainFaces[t].first, dist);
-
-    	testPairs.push_back(temp);
   
-		}
-	}
-  
- 
-
- if (thresh > float(1.0)){
-	  for(unsigned int t = 0; t < trainFaces.size(); t++) {
+  for(unsigned int t = 0; t < trainFaces.size(); t++) {
 	    dist = (projTestFace.second - projTrainFaces[t].second).norm();
 	    pair<string, float> temp(trainFaces[t].first, dist);
 
 	    testPairs.push_back(temp);
-	  }
-}
 
+	    cout << "a " << dist << endl;
+	  }
+
+  
   // Sort distances
   sort(testPairs.begin(), testPairs.end(), compare);
   first = testPairs[0].first;
+  float val = testPairs[0].second;
+  //cout << "VAL = " << val << " THRESH " << thresh << endl;
   //cout << first << endl;
   vector<string> names;
 
+  if (thresh != 1)
+  {
+  	if (testPairs[0].second < thresh)
+  	{
+  		//cout << "Thresh: " << thresh << "pt " << testPairs[0].second << endl;
+  		if(projTestFace.first == testPairs[0].first) 
+  		{
+			return 1;
+		}
+
+		else if (projTestFace.first != testPairs[0].first)
+			{
+				return 2;
+			}
+		
+	
+  	}
+
+  	else if (testPairs[0].second >=thresh)
+  	{
+  		cout << "BAD Thresh: " << thresh << "pt " << testPairs[0].second << endl;
+  		return 3;
+  	}
+  }
+
   // returns true if ID correctly matches closest one
   //Add an outer loop to check series of answers. 
+  else if (thresh == 1){
 
-	if (thresh <= float(1.0) && testPairs[0].second < thresh){
-		cout << "SECOND " << testPairs[0].second << endl;
-		cout << "FIRST " << projTestFace.first << " " << testPairs[0].first << endl;
-		cout << testPairs[0].second << " " << testPairs[0].first << projTestFace.first << endl;
-		if(projTestFace.first == testPairs[0].first && find(names.begin(), names.end(), projTestFace.first) == names.end()) {
-			tp++;
-			cout << "TRUE " << endl;
-			names.push_back(projTestFace.first);
-			return true;
-			}
-
-		else if(projTestFace.first != testPairs[0].first && find(names.begin(), names.end(), projTestFace.first) == names.end()){
-			fp++;
-			cout << "FALSE " << endl;
-			names.push_back(projTestFace.first);
-			return false;
-		}
-		
-	}
-
-	if (thresh > float(1.0)){
 		for(int i = 0; i < N; i++) { //Check the top 50 and see if they match
 			if(projTestFace.first == testPairs[i].first) {
-				return true;
+					return 1;
 			}
 
 		}
-		return false;
-	}
+		return 2;
+  }
+	
 }
  
 void calc_N_Vals(vector<pair<string, VectorXf> > projTestFaces, vector<pair<string, VectorXf> > projTrainFaces,  vector<pair<string, VectorXf> >trainFaces, int N, int& correct, int& incorrect, vector<string>& cor, vector<string>& inc, float pres)
@@ -810,20 +879,19 @@ void calc_N_Vals(vector<pair<string, VectorXf> > projTestFaces, vector<pair<stri
  	char h = 'h';
  	int val = 1;
  	int ival =1;
- 	for(int k = 0; k < projTestFaces.size(); k++)
+ 	for(unsigned int k = 0; k < projTestFaces.size(); k++)
  	 {
  	 	string first;
- 	 	int t1;
- 	 	int t2;
  	 	
-		if(classify(projTestFaces[k], projTrainFaces, trainFaces, N, first, 170.0,t1, t2)) 
+ 	 	
+		if(classify(projTestFaces[k], projTrainFaces, trainFaces, N, first, 1) == true)
 		{
 			correct++;
 			
 			if(N == 1 && val<= 3)
 			{
 				
-				for (int j = 0; j < projTrainFaces.size(); j++)
+				for (unsigned int j = 0; j < projTrainFaces.size(); j++)
 				{
 					
 					if (projTrainFaces[j].first == projTestFaces[k].first)
@@ -939,7 +1007,7 @@ void calc_N_Vals(vector<pair<string, VectorXf> > projTestFaces, vector<pair<stri
 			if(N == 1 && ival <=3)
 			{
 
-				for (int j = 0; j < projTrainFaces.size(); j++)
+				for (unsigned int j = 0; j < projTrainFaces.size(); j++)
 				{
 					if (projTrainFaces[j].first == first)
 					{
