@@ -1,0 +1,609 @@
+To preserve 0.8 percent of the data, using k = 9
+train
+test
+1
+correct: 553
+incorrect: 643
+percent correct: 0.462375
+2
+correct: 658
+incorrect: 538
+percent correct: 0.550167
+3
+correct: 712
+incorrect: 484
+percent correct: 0.595318
+4
+correct: 762
+incorrect: 434
+percent correct: 0.637124
+5
+correct: 794
+incorrect: 402
+percent correct: 0.66388
+6
+correct: 813
+incorrect: 383
+percent correct: 0.679766
+7
+correct: 833
+incorrect: 363
+percent correct: 0.696488
+8
+correct: 856
+incorrect: 340
+percent correct: 0.715719
+9
+correct: 866
+incorrect: 330
+percent correct: 0.72408
+10
+correct: 879
+incorrect: 317
+percent correct: 0.73495
+11
+correct: 891
+incorrect: 305
+percent correct: 0.744983
+12
+correct: 906
+incorrect: 290
+percent correct: 0.757525
+13
+correct: 913
+incorrect: 283
+percent correct: 0.763378
+14
+correct: 923
+incorrect: 273
+percent correct: 0.771739
+15
+correct: 930
+incorrect: 266
+percent correct: 0.777592
+16
+correct: 938
+incorrect: 258
+percent correct: 0.784281
+17
+correct: 947
+incorrect: 249
+percent correct: 0.791806
+18
+correct: 954
+incorrect: 242
+percent correct: 0.797659
+19
+correct: 961
+incorrect: 235
+percent correct: 0.803512
+20
+correct: 966
+incorrect: 230
+percent correct: 0.807692
+21
+correct: 972
+incorrect: 224
+percent correct: 0.812709
+22
+correct: 980
+incorrect: 216
+percent correct: 0.819398
+23
+correct: 988
+incorrect: 208
+percent correct: 0.826087
+24
+correct: 990
+incorrect: 206
+percent correct: 0.827759
+25
+correct: 995
+incorrect: 201
+percent correct: 0.83194
+26
+correct: 1000
+incorrect: 196
+percent correct: 0.83612
+27
+correct: 1001
+incorrect: 195
+percent correct: 0.836957
+28
+correct: 1003
+incorrect: 193
+percent correct: 0.838629
+29
+correct: 1007
+incorrect: 189
+percent correct: 0.841973
+30
+correct: 1007
+incorrect: 189
+percent correct: 0.841973
+31
+correct: 1010
+incorrect: 186
+percent correct: 0.844482
+32
+correct: 1012
+incorrect: 184
+percent correct: 0.846154
+33
+correct: 1019
+incorrect: 177
+percent correct: 0.852007
+34
+correct: 1019
+incorrect: 177
+percent correct: 0.852007
+35
+correct: 1025
+incorrect: 171
+percent correct: 0.857023
+36
+correct: 1028
+incorrect: 168
+percent correct: 0.859532
+37
+correct: 1030
+incorrect: 166
+percent correct: 0.861204
+38
+correct: 1034
+incorrect: 162
+percent correct: 0.864549
+39
+correct: 1036
+incorrect: 160
+percent correct: 0.866221
+40
+correct: 1039
+incorrect: 157
+percent correct: 0.868729
+41
+correct: 1042
+incorrect: 154
+percent correct: 0.871237
+42
+correct: 1043
+incorrect: 153
+percent correct: 0.872074
+43
+correct: 1045
+incorrect: 151
+percent correct: 0.873746
+44
+correct: 1046
+incorrect: 150
+percent correct: 0.874582
+45
+correct: 1048
+incorrect: 148
+percent correct: 0.876254
+46
+correct: 1049
+incorrect: 147
+percent correct: 0.87709
+47
+correct: 1053
+incorrect: 143
+percent correct: 0.880435
+48
+correct: 1056
+incorrect: 140
+percent correct: 0.882943
+49
+correct: 1057
+incorrect: 139
+percent correct: 0.883779
+50
+correct: 1059
+incorrect: 137
+percent correct: 0.885451
+To preserve 0.9 percent of the data, using k = 19
+train
+test
+1
+correct: 717
+incorrect: 479
+percent correct: 0.599498
+2
+correct: 800
+incorrect: 396
+percent correct: 0.668896
+3
+correct: 849
+incorrect: 347
+percent correct: 0.709866
+4
+correct: 878
+incorrect: 318
+percent correct: 0.734114
+5
+correct: 909
+incorrect: 287
+percent correct: 0.760033
+6
+correct: 925
+incorrect: 271
+percent correct: 0.773411
+7
+correct: 937
+incorrect: 259
+percent correct: 0.783445
+8
+correct: 951
+incorrect: 245
+percent correct: 0.795151
+9
+correct: 959
+incorrect: 237
+percent correct: 0.801839
+10
+correct: 963
+incorrect: 233
+percent correct: 0.805184
+11
+correct: 973
+incorrect: 223
+percent correct: 0.813545
+12
+correct: 980
+incorrect: 216
+percent correct: 0.819398
+13
+correct: 982
+incorrect: 214
+percent correct: 0.82107
+14
+correct: 988
+incorrect: 208
+percent correct: 0.826087
+15
+correct: 991
+incorrect: 205
+percent correct: 0.828595
+16
+correct: 995
+incorrect: 201
+percent correct: 0.83194
+17
+correct: 1001
+incorrect: 195
+percent correct: 0.836957
+18
+correct: 1011
+incorrect: 185
+percent correct: 0.845318
+19
+correct: 1017
+incorrect: 179
+percent correct: 0.850334
+20
+correct: 1019
+incorrect: 177
+percent correct: 0.852007
+21
+correct: 1022
+incorrect: 174
+percent correct: 0.854515
+22
+correct: 1027
+incorrect: 169
+percent correct: 0.858696
+23
+correct: 1030
+incorrect: 166
+percent correct: 0.861204
+24
+correct: 1033
+incorrect: 163
+percent correct: 0.863712
+25
+correct: 1038
+incorrect: 158
+percent correct: 0.867893
+26
+correct: 1039
+incorrect: 157
+percent correct: 0.868729
+27
+correct: 1040
+incorrect: 156
+percent correct: 0.869565
+28
+correct: 1043
+incorrect: 153
+percent correct: 0.872074
+29
+correct: 1048
+incorrect: 148
+percent correct: 0.876254
+30
+correct: 1052
+incorrect: 144
+percent correct: 0.879599
+31
+correct: 1053
+incorrect: 143
+percent correct: 0.880435
+32
+correct: 1055
+incorrect: 141
+percent correct: 0.882107
+33
+correct: 1058
+incorrect: 138
+percent correct: 0.884615
+34
+correct: 1058
+incorrect: 138
+percent correct: 0.884615
+35
+correct: 1061
+incorrect: 135
+percent correct: 0.887124
+36
+correct: 1064
+incorrect: 132
+percent correct: 0.889632
+37
+correct: 1064
+incorrect: 132
+percent correct: 0.889632
+38
+correct: 1065
+incorrect: 131
+percent correct: 0.890468
+39
+correct: 1065
+incorrect: 131
+percent correct: 0.890468
+40
+correct: 1065
+incorrect: 131
+percent correct: 0.890468
+41
+correct: 1065
+incorrect: 131
+percent correct: 0.890468
+42
+correct: 1067
+incorrect: 129
+percent correct: 0.89214
+43
+correct: 1071
+incorrect: 125
+percent correct: 0.895485
+44
+correct: 1075
+incorrect: 121
+percent correct: 0.898829
+45
+correct: 1075
+incorrect: 121
+percent correct: 0.898829
+46
+correct: 1075
+incorrect: 121
+percent correct: 0.898829
+47
+correct: 1077
+incorrect: 119
+percent correct: 0.900502
+48
+correct: 1079
+incorrect: 117
+percent correct: 0.902174
+49
+correct: 1079
+incorrect: 117
+percent correct: 0.902174
+50
+correct: 1080
+incorrect: 116
+percent correct: 0.90301
+To preserve 0.95 percent of the data, using k = 39
+train
+test
+1
+correct: 784
+incorrect: 412
+percent correct: 0.655518
+2
+correct: 861
+incorrect: 335
+percent correct: 0.7199
+3
+correct: 895
+incorrect: 301
+percent correct: 0.748328
+4
+correct: 918
+incorrect: 278
+percent correct: 0.767559
+5
+correct: 940
+incorrect: 256
+percent correct: 0.785953
+6
+correct: 954
+incorrect: 242
+percent correct: 0.797659
+7
+correct: 965
+incorrect: 231
+percent correct: 0.806856
+8
+correct: 973
+incorrect: 223
+percent correct: 0.813545
+9
+correct: 976
+incorrect: 220
+percent correct: 0.816054
+10
+correct: 983
+incorrect: 213
+percent correct: 0.821906
+11
+correct: 986
+incorrect: 210
+percent correct: 0.824415
+12
+correct: 998
+incorrect: 198
+percent correct: 0.834448
+13
+correct: 1003
+incorrect: 193
+percent correct: 0.838629
+14
+correct: 1006
+incorrect: 190
+percent correct: 0.841137
+15
+correct: 1009
+incorrect: 187
+percent correct: 0.843646
+16
+correct: 1013
+incorrect: 183
+percent correct: 0.84699
+17
+correct: 1022
+incorrect: 174
+percent correct: 0.854515
+18
+correct: 1024
+incorrect: 172
+percent correct: 0.856187
+19
+correct: 1029
+incorrect: 167
+percent correct: 0.860368
+20
+correct: 1033
+incorrect: 163
+percent correct: 0.863712
+21
+correct: 1033
+incorrect: 163
+percent correct: 0.863712
+22
+correct: 1037
+incorrect: 159
+percent correct: 0.867057
+23
+correct: 1039
+incorrect: 157
+percent correct: 0.868729
+24
+correct: 1043
+incorrect: 153
+percent correct: 0.872074
+25
+correct: 1046
+incorrect: 150
+percent correct: 0.874582
+26
+correct: 1048
+incorrect: 148
+percent correct: 0.876254
+27
+correct: 1051
+incorrect: 145
+percent correct: 0.878763
+28
+correct: 1051
+incorrect: 145
+percent correct: 0.878763
+29
+correct: 1054
+incorrect: 142
+percent correct: 0.881271
+30
+correct: 1059
+incorrect: 137
+percent correct: 0.885451
+31
+correct: 1063
+incorrect: 133
+percent correct: 0.888796
+32
+correct: 1065
+incorrect: 131
+percent correct: 0.890468
+33
+correct: 1071
+incorrect: 125
+percent correct: 0.895485
+34
+correct: 1073
+incorrect: 123
+percent correct: 0.897157
+35
+correct: 1073
+incorrect: 123
+percent correct: 0.897157
+36
+correct: 1075
+incorrect: 121
+percent correct: 0.898829
+37
+correct: 1077
+incorrect: 119
+percent correct: 0.900502
+38
+correct: 1077
+incorrect: 119
+percent correct: 0.900502
+39
+correct: 1077
+incorrect: 119
+percent correct: 0.900502
+40
+correct: 1077
+incorrect: 119
+percent correct: 0.900502
+41
+correct: 1079
+incorrect: 117
+percent correct: 0.902174
+42
+correct: 1080
+incorrect: 116
+percent correct: 0.90301
+43
+correct: 1083
+incorrect: 113
+percent correct: 0.905518
+44
+correct: 1083
+incorrect: 113
+percent correct: 0.905518
+45
+correct: 1084
+incorrect: 112
+percent correct: 0.906354
+46
+correct: 1085
+incorrect: 111
+percent correct: 0.907191
+47
+correct: 1088
+incorrect: 108
+percent correct: 0.909699
+48
+correct: 1088
+incorrect: 108
+percent correct: 0.909699
+49
+correct: 1088
+incorrect: 108
+percent correct: 0.909699
+50
+correct: 1090
+incorrect: 106
+percent correct: 0.911371

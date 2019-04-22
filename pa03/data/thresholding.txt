@@ -1,0 +1,303 @@
+T= 0
+FP= 0 Rate= 0 TP= 0 Rate= 0 Precision= -nan Recall= 0
+
+T= 79.2921
+FP= 0 Rate= 0 TP= 0 Rate= 0 Precision= -nan Recall= 0
+
+T= 158.584
+FP= 0 Rate= 0 TP= 2 Rate= 0.00179856 Precision= 1 Recall= 0.0018018
+
+T= 237.876
+FP= 0 Rate= 0 TP= 11 Rate= 0.00989209 Precision= 1 Recall= 0.00999092
+
+T= 317.169
+FP= 0 Rate= 0 TP= 46 Rate= 0.0413669 Precision= 1 Recall= 0.043152
+
+T= 396.461
+FP= 0 Rate= 0 TP= 92 Rate= 0.0827338 Precision= 1 Recall= 0.0901961
+
+T= 475.753
+FP= 1 Rate= 0.0111111 TP= 178 Rate= 0.160072 Precision= 0.994413 Recall= 0.190578
+
+T= 555.045
+FP= 1 Rate= 0.0111111 TP= 288 Rate= 0.258993 Precision= 0.99654 Recall= 0.349515
+
+T= 634.337
+FP= 4 Rate= 0.0444444 TP= 395 Rate= 0.355216 Precision= 0.989975 Recall= 0.550907
+
+T= 713.629
+FP= 10 Rate= 0.111111 TP= 492 Rate= 0.442446 Precision= 0.98008 Recall= 0.793548
+
+T= 792.921
+FP= 15 Rate= 0.166667 TP= 565 Rate= 0.508094 Precision= 0.974138 Recall= 1.03291
+
+T= 872.214
+FP= 26 Rate= 0.288889 TP= 628 Rate= 0.564748 Precision= 0.960245 Recall= 1.29752
+
+T= 951.506
+FP= 32 Rate= 0.355556 TP= 661 Rate= 0.594424 Precision= 0.953824 Recall= 1.46563
+
+T= 1030.8
+FP= 43 Rate= 0.477778 TP= 693 Rate= 0.623201 Precision= 0.941576 Recall= 1.65394
+
+T= 1110.09
+FP= 49 Rate= 0.544444 TP= 706 Rate= 0.634892 Precision= 0.935099 Recall= 1.73892
+
+T= 1189.38
+FP= 51 Rate= 0.566667 TP= 717 Rate= 0.644784 Precision= 0.933594 Recall= 1.81519
+
+T= 1268.67
+FP= 60 Rate= 0.666667 TP= 724 Rate= 0.651079 Precision= 0.923469 Recall= 1.86598
+
+T= 1347.97
+FP= 67 Rate= 0.744444 TP= 727 Rate= 0.653777 Precision= 0.915617 Recall= 1.88831
+
+T= 1427.26
+FP= 72 Rate= 0.8 TP= 730 Rate= 0.656475 Precision= 0.910224 Recall= 1.91099
+
+T= 1506.55
+FP= 73 Rate= 0.811111 TP= 731 Rate= 0.657374 Precision= 0.909204 Recall= 1.91864
+
+T= 1585.84
+FP= 75 Rate= 0.833333 TP= 731 Rate= 0.657374 Precision= 0.906948 Recall= 1.91864
+
+T= 1665.13
+FP= 75 Rate= 0.833333 TP= 731 Rate= 0.657374 Precision= 0.906948 Recall= 1.91864
+
+T= 1744.43
+FP= 78 Rate= 0.866667 TP= 732 Rate= 0.658273 Precision= 0.903704 Recall= 1.92632
+
+T= 1823.72
+FP= 79 Rate= 0.877778 TP= 732 Rate= 0.658273 Precision= 0.902589 Recall= 1.92632
+
+T= 1903.01
+FP= 80 Rate= 0.888889 TP= 732 Rate= 0.658273 Precision= 0.901478 Recall= 1.92632
+
+T= 1982.3
+FP= 81 Rate= 0.9 TP= 732 Rate= 0.658273 Precision= 0.900369 Recall= 1.92632
+
+T= 2061.6
+FP= 82 Rate= 0.911111 TP= 732 Rate= 0.658273 Precision= 0.899263 Recall= 1.92632
+
+T= 2140.89
+FP= 83 Rate= 0.922222 TP= 732 Rate= 0.658273 Precision= 0.89816 Recall= 1.92632
+
+T= 2220.18
+FP= 84 Rate= 0.933333 TP= 732 Rate= 0.658273 Precision= 0.897059 Recall= 1.92632
+
+T= 2299.47
+FP= 85 Rate= 0.944444 TP= 732 Rate= 0.658273 Precision= 0.895961 Recall= 1.92632
+
+T= 2378.76
+FP= 85 Rate= 0.944444 TP= 732 Rate= 0.658273 Precision= 0.895961 Recall= 1.92632
+
+T= 2458.06
+FP= 85 Rate= 0.944444 TP= 732 Rate= 0.658273 Precision= 0.895961 Recall= 1.92632
+
+T= 2537.35
+FP= 86 Rate= 0.955556 TP= 732 Rate= 0.658273 Precision= 0.894866 Recall= 1.92632
+
+T= 2616.64
+FP= 86 Rate= 0.955556 TP= 732 Rate= 0.658273 Precision= 0.894866 Recall= 1.92632
+
+T= 2695.93
+FP= 86 Rate= 0.955556 TP= 732 Rate= 0.658273 Precision= 0.894866 Recall= 1.92632
+
+T= 2775.22
+FP= 87 Rate= 0.966667 TP= 732 Rate= 0.658273 Precision= 0.893773 Recall= 1.92632
+
+T= 2854.52
+FP= 88 Rate= 0.977778 TP= 732 Rate= 0.658273 Precision= 0.892683 Recall= 1.92632
+
+T= 2933.81
+FP= 88 Rate= 0.977778 TP= 732 Rate= 0.658273 Precision= 0.892683 Recall= 1.92632
+
+T= 3013.1
+FP= 89 Rate= 0.988889 TP= 732 Rate= 0.658273 Precision= 0.891596 Recall= 1.92632
+
+T= 3092.39
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 3171.69
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 3250.98
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 3330.27
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 3409.56
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 3488.85
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 3568.15
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 3647.44
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 3726.73
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 3806.02
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 3885.31
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 3964.61
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 4043.9
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 4123.19
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 4202.48
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 4281.78
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 4361.07
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 4440.36
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 4519.65
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 4598.94
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 4678.24
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 4757.53
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 4836.82
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 4916.11
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 4995.4
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 5074.7
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 5153.99
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 5233.28
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 5312.57
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 5391.87
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 5471.16
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 5550.45
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 5629.74
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 5709.03
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 5788.33
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 5867.62
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 5946.91
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 6026.2
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 6105.49
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 6184.79
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 6264.08
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 6343.37
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 6422.66
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 6501.96
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 6581.25
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 6660.54
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 6739.83
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 6819.12
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 6898.42
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 6977.71
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 7057
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 7136.29
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 7215.58
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 7294.88
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 7374.17
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 7453.46
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 7532.75
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 7612.04
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 7691.34
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 7770.63
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 7849.92
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
+T= 7929.21
+FP= 90 Rate= 1 TP= 732 Rate= 0.658273 Precision= 0.890511 Recall= 1.92632
+
