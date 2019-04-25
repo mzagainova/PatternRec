@@ -10,7 +10,8 @@ using namespace std;
 
 void saveNewTrainingFile(char* fileName, int i) {
 	string inFile = "genderdata/48_60/";
-	string curData = "", curLabel = "";
+	string curData = "";
+	char curLabel[2];
 	ifstream finData, finLabel;
 	istringstream iss;
 	char outfileName[256];
@@ -21,16 +22,17 @@ void saveNewTrainingFile(char* fileName, int i) {
 
 	inFile += fileName;
 	cout << inFile << endl;
-	finData.open(inFile);
+	finData.open(inFile.c_str());
 	inFile = "genderdata/48_60/T";
 	inFile += fileName;
-	finLabel.open(inFile);
+	finLabel.open(inFile.c_str());
 
 	cout << getline(finData, curData) << endl;
 
-	while(numEig < 30 && getline(finData, curData) && getline(finLabel, curLabel)) {
-		cout << "currLabel" << endl;
+	while(numEig < 30 && getline(finData, curData) && finLabel.get(curLabel, 2)) {
+		cout << "currLabel " << curLabel << "..." << endl;
 		fout << curLabel;
+		finLabel.get(curLabel, 2);
 		iss.clear();
 		iss.str(curData);
 		counter = 1;
@@ -39,19 +41,19 @@ void saveNewTrainingFile(char* fileName, int i) {
 			cout << " " << counter << ":" << curFloat;
 			counter++;
 		}
-		fout << "\r";
+		fout << endl;
 		cout << "\n";
 		numEig++;
 	}
 	finData.close();
 	finLabel.close();
 	fout.close();
-
 }
 
 void saveNewTestFile(char* fileName, int i, string val) {
 	string inFile = "genderdata/48_60/";
-	string curData = "", curLabel = "";
+	string curData = "";
+	char curLabel[2];
 	ifstream finData, finLabel;
 	istringstream iss;
 	char outfileName[256];
@@ -61,13 +63,14 @@ void saveNewTestFile(char* fileName, int i, string val) {
 	int counter = 1;
 
 	inFile += fileName;
-	finData.open(inFile);
+	finData.open(inFile.c_str());
 	inFile = "genderdata/48_60/T";
 	inFile += fileName;
-	finLabel.open(inFile);
+	finLabel.open(inFile.c_str());
 
-	while(getline(finData, curData) && getline(finLabel, curLabel)) {
+	while(getline(finData, curData) && finLabel.get(curLabel, 2)) {
 		fout << curLabel;
+		finLabel.get(curLabel, 2);
 		iss.clear();
 		iss.str(curData);
 		counter = 1;
@@ -75,7 +78,7 @@ void saveNewTestFile(char* fileName, int i, string val) {
 			fout << " " << counter << ":" << curFloat;
 			counter++;
 		}
-		fout << "\r";
+		fout << endl;
 	}
 	finData.close();
 	finLabel.close();
