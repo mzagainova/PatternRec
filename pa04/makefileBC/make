@@ -1,0 +1,24 @@
+# Makefile for Writing Make Files Example
+
+# *****************************************************
+# Variables to control Makefile operation
+
+CXX = g++
+CXXFLAGS = -Wall -g -std=c++11 
+
+# ****************************************************
+# Targets needed to bring the executable up to date
+
+BC: BC.o
+	$(CXX) $(CXXFLAGS) -o BC BC.o
+
+# The main.o target can be written more simply
+
+BC.o: BC.cpp 
+	$(CXX) $(CXXFLAGS) -c BC.cpp
+
+
+
+
+
+
